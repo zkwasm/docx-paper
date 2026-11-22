@@ -76,6 +76,37 @@ const viewer = await renderDocx(fileArrayBuffer, document.getElementById('viewer
 </script>
 ```
 
+---
+
+## 与主流开源库对比
+
+| 特性维度 | `mammoth.js` | 原版 `docx-preview` (`docxjs`) | **`docx-paper` (本项目)** |
+| :--- | :---: | :---: | :---: |
+| **页面级排版与页边距** | ❌ 仅提取纯文本语义 | ✅ 支持 | ✅ **支持（含缺省页边距标准回退）** |
+| **MathType / OLE 嵌入公式 (`<w:object>`)** | ❌ 完全丢弃 | ❌ 完全丢弃 | ✅ **100% 完整解析还原** |
+| **`.wmf` / `.emf` 二进制矢量图元** | ❌ 浏览器裂图 | ❌ 浏览器裂图 | ✅ **内置纯 JS 二进制转矢量 SVG / BMP** |
+| **OMML 原生数学公式 (`<m:oMath>`)** | ❌ 丢失 | ⚠️ 存在 `<ms>` 双引号 Bug、缺 `sSubSup`/`acc` | ✅ **完整 W3C MathML 词法与结构编译** |
+| **中文排版 (`firstLineChars`/着重号/拼音)** | ❌ 丢失 | ❌ 丢失 | ✅ **完整支持 + 中文字体回退链** |
+| **中文“三线表”与内框线 (`insideH`/`insideV`)** | ❌ 无样式 | ❌ 内外框混用（Issue #221） | ✅ **外框与单元格内框独立解析** |
+| **真实物理切页与流式加载** | ❌ 单页长文 | ⚠️ 无缓存分页符时粘成一长条，或产生空白页 | ✅ **按纸张高度自动切分独立卡片 + 首屏流式秒开** |
+
+---
+
+## 已知边界与尚未实现的特性（Known Limitations）
+
+由于 `docx-paper` 的设计目标是保持**极致轻量（Gzip 后仅 ~90 KB）、零后端依赖、纯前端毫秒级启动**，而非加载 30MB+ 的 LibreOffice WebAssembly 虚拟机，以下少数 Word 专有特性目前尚未实现或存在边界限制：
+
+1. **不支持旧版二进制 `.doc` 格式（Word 97–2003 BIFF 二进制结构）**：
+   - 仅支持基于 OpenXML (ZIP) 规范的现代 `.docx` 文档。旧版 `.doc` 文件需先转换为 `.docx`。
+2. **原生 SmartArt 与复杂 DrawingML 图表（`<dgm:relIds>`、`<c:chart>`）**：
+   - Word 桌面端使用专有 C++ 算法动态计算 SmartArt 节点布局与 3D 图表网格。若文档内未包含 `<mc:Fallback>` 预览图，纯 DrawingML 动态图表暂不支持实时重算绘制。
+3. **WordArt 3D 艺术字弯曲与立体光影特效（`<w14:textOutline>`、`<a:prstTxWarp>`）**：
+   - 保留文字内容、字号与颜色，但不模拟贝塞尔曲线路径扭曲和三维棱台/光照效果。
+4. **VBA 宏（`.docm`）与 ActiveX 控件**：
+   - 出于浏览器安全沙箱与跨平台限制，忽略所有 VBA 宏脚本与 Windows 专有 ActiveX 控件。
+5. **跨操作系统缺失字体时的字距微差**：
+   - 若客户端系统未安装文档指定的 Windows 专有商业字体（如特定方正字库），回退到 macOS/Linux 系统字体后，浏览器的 CSS 断行算法可能与桌面版 Word 存在每行 1~2 个字符的折行位置微差。
+
 ## 开源协议
 
 Apache-2.0

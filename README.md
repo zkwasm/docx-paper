@@ -102,6 +102,33 @@ Tested against a 100-document benchmark suite comprising:
 - **Calibre Official `demo.docx` Full-Feature Benchmark**
 - **Real-world Chinese STEM Exam Papers & Technical Specifications** (1,000+ embedded MathType `.wmf`/`.png` equations, multi-section portrait/landscape tables, mixed CJK/English layouts)
 
+| Feature | `mammoth.js` | `docx-preview` (`docxjs`) | **`docx-paper`** |
+| :--- | :---: | :---: | :---: |
+| **Page Layout & Margins** | ❌ Semantic HTML only | ✅ Supported | ✅ **Supported (with default margin fallback)** |
+| **MathType / OLE Equations (`<w:object>`)** | ❌ Dropped | ❌ Dropped | ✅ **Supported** |
+| **Binary `.wmf` / `.emf` Vector Graphics** | ❌ Broken image | ❌ Broken image | ✅ **Built-in pure-JS WMF/EMF → SVG/BMP** |
+| **OMML Equations (`<m:oMath>`)** | ❌ Dropped | ⚠️ Partial (`<ms>` quote bugs, missing `sSubSup`/`acc`) | ✅ **Full W3C MathML compiler** |
+| **CJK Typography (`firstLineChars`, `em`, `ruby`)** | ❌ Dropped | ❌ Dropped | ✅ **Full CJK typography & font fallback** |
+| **Three-Line Tables (`insideH` / `insideV`)** | ❌ Unstyled | ❌ Broken (Issue #221) | ✅ **Independent outer & inner borders** |
+| **Physical Multi-Page Splitting & Print** | ❌ Single flow | ⚠️ Merged when `lastRenderedPageBreak` absent | ✅ **Auto page splitting + progressive streaming** |
+
+---
+
+## Known Limitations (Not Yet Implemented)
+
+Because `docx-paper` is a lightweight (~90 KB gzipped), zero-backend, pure JavaScript/HTML/CSS engine rather than a 30MB+ C++ WebAssembly port of LibreOffice, a few proprietary Microsoft Word features are currently out of scope or partially supported:
+
+1. **Legacy Binary `.doc` (Word 97–2003 BIFF Format)**:
+   - Only modern `.docx` (Office Open XML ZIP packages) are supported. Legacy binary `.doc` files must be converted to `.docx` first.
+2. **SmartArt & Complex DrawingML 3D Charts (`<dgm:relIds>`, `<c:chart>`)**:
+   - Word dynamically computes SmartArt node layouts and 3D chart meshes using an internal C++ layout engine. Unless the `.docx` embeds a fallback image (`<mc:Fallback>`), native DrawingML SmartArt/Charts without fallback images are not rendered.
+3. **WordArt 3D Warping & Text-Path Effects (`<w14:textOutline>`, `<a:prstTxWarp>`)**:
+   - Basic text colors and sizes are preserved, but complex bezier curve text warping and 3D bevel/extrusion effects are not replicated in CSS.
+4. **VBA Macros (`.docm`) & ActiveX Controls**:
+   - Macros and Windows-specific ActiveX binary controls are ignored for security and cross-platform compatibility.
+5. **Character-Level Line-Break Reflow vs. Native Word**:
+   - Browser font kerning and line-breaking algorithms (`CSS Text Level 3`) can differ by 1–2 characters per line from Microsoft Word's proprietary desktop hyphenation/grid engine if the exact Windows fonts are not installed on the client OS.
+
 ## License
 
 Apache-2.0
