@@ -1,0 +1,47 @@
+{
+  "name": "docx-paper",
+  "version": "1.0.0",
+  "description": "High-fidelity pure-frontend .docx (OpenXML) page renderer with built-in WMF/EMF vector formula engine, OMML math, CJK typography, and progressive pagination.",
+  "main": "dist/docx-paper.js",
+  "module": "dist/docx-paper.esm.js",
+  "unpkg": "dist/docx-paper.js",
+  "jsdelivr": "dist/docx-paper.js",
+  "types": "dist/docx-paper.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "README.zh-CN.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node scripts/build.js"
+  },
+  "keywords": [
+    "docx",
+    "word",
+    "openxml",
+    "ooxml",
+    "docx-viewer",
+    "docx-preview",
+    "wmf",
+    "emf",
+    "mathtype",
+    "omml",
+    "mathml",
+    "cjk",
+    "viewer",
+    "printer",
+    "ai-document"
+  ],
+  "author": "zkwasm",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zkwasm/docx-paper.git"
+  },
+  "homepage": "https://github.com/zkwasm/docx-paper",
+  "dependencies": {
+    "jszip": "^3.10.1"
+  }
+}

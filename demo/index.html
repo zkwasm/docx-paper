@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>docx-paper Demo</title>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="../dist/docx-paper.js"></script>
+  <style>
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, sans-serif; height: 100vh; display: flex; flex-direction: column; background: #e2e8f0; }
+    header { height: 52px; background: #fff; border-bottom: 1px solid #cbd5e1; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+    #viewport { flex: 1; overflow: auto; padding: 28px 16px; }
+    #viewer { width: fit-content; margin: 0 auto; }
+    button, label { background: #2563eb; color: #fff; border: none; padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; }
+    .meta { font-size: 13px; color: #475569; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <header class="no-print">
+    <div>
+      <strong>docx-paper</strong>
+      <label style="margin-left: 12px;">
+        选择 .docx 文件
+        <input type="file" id="file" accept=".docx" hidden />
+      </label>
+    </div>
+    <div class="meta" id="page-info">未打开文档</div>
+    <div>
+      <button onclick="viewer && viewer.prevPage()">上一页</button>
+      <button onclick="viewer && viewer.nextPage()">下一页</button>
+      <button onclick="viewer && viewer.print()">打印</button>
+    </div>
+  </header>
+  <div id="viewport">
+    <div id="viewer"></div>
+  </div>
+  <script>
+    let viewer = null;
+    document.getElementById('file').addEventListener('change', async (e) => {
+      const f = e.target.files[0];
+      if (!f) return;
+      const buf = await f.arrayBuffer();
+      if (viewer) viewer.destroy();
+      viewer = await DocxPaper.renderDocx(buf, document.getElementById('viewer'), {
+        scrollContainer: document.getElementById('viewport'),
+        onPageChange: ({ page, total, formulaCount }) => {
+          document.getElementById('page-info').textContent = `第 ${page} / ${total} 页 · ${formulaCount} 处公式`;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
