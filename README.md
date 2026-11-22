@@ -1,11 +1,12 @@
 # docx-paper
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-2563eb.svg)](https://zkwasm.github.io/docx-paper/demo/)
 [![npm version](https://img.shields.io/npm/v/docx-paper.svg)](https://www.npmjs.com/package/docx-paper)
 [![npm downloads](https://img.shields.io/npm/dm/docx-paper.svg)](https://www.npmjs.com/package/docx-paper)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](./LICENSE)
 [![Compatibility](https://img.shields.io/badge/OpenXML%20Benchmark-100%2F100%20Passed-brightgreen.svg)](#compatibility)
 
-**[English](./README.md) | [简体中文](./README.zh-CN.md)**
+**[English](./README.md) | [简体中文](./README.zh-CN.md) | [✨ Live Demo](https://zkwasm.github.io/docx-paper/demo/)**
 
 **`docx-paper`** is a high-fidelity, pure-frontend `.docx` (Office Open XML) page renderer and print engine designed for the AI-native era—where humans read, review, and print Word documents in the browser while AI handles document generation and editing.
 

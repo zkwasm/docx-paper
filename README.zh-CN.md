@@ -1,11 +1,12 @@
 # docx-paper (中文文档)
 
+[![Live Demo](https://img.shields.io/badge/在线体验-GitHub%20Pages-2563eb.svg)](https://zkwasm.github.io/docx-paper/demo/)
 [![npm version](https://img.shields.io/npm/v/docx-paper.svg)](https://www.npmjs.com/package/docx-paper)
 [![npm downloads](https://img.shields.io/npm/dm/docx-paper.svg)](https://www.npmjs.com/package/docx-paper)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](./LICENSE)
 [![Compatibility](https://img.shields.io/badge/OpenXML%20Benchmark-100%2F100%20Passed-brightgreen.svg)](#)
 
-**[English](./README.md) | [简体中文](./README.zh-CN.md)**
+**[English](./README.md) | [简体中文](./README.zh-CN.md) | [✨ 在线体验 Demo](https://zkwasm.github.io/docx-paper/demo/)**
 
 **`docx-paper`** 是一个面向 AI 时代的**高保真、纯前端 `.docx` (Office Open XML) 页面渲染与打印引擎**。
 
