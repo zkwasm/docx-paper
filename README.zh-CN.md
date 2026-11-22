@@ -1,5 +1,10 @@
 # docx-paper (中文文档)
 
+[![npm version](https://img.shields.io/npm/v/docx-paper.svg)](https://www.npmjs.com/package/docx-paper)
+[![npm downloads](https://img.shields.io/npm/dm/docx-paper.svg)](https://www.npmjs.com/package/docx-paper)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](./LICENSE)
+[![Compatibility](https://img.shields.io/badge/OpenXML%20Benchmark-100%2F100%20Passed-brightgreen.svg)](#)
+
 **[English](./README.md) | [简体中文](./README.zh-CN.md)**
 
 **`docx-paper`** 是一个面向 AI 时代的**高保真、纯前端 `.docx` (Office Open XML) 页面渲染与打印引擎**。
@@ -24,11 +29,28 @@
 
 ---
 
-## 3 行代码快速接入
+## 快速接入
+
+### 方式一：NPM 安装（React / Vue / Next.js / Vite）
+
+```bash
+npm install docx-paper jszip
+```
+
+```js
+import { renderDocx } from 'docx-paper';
+
+const viewer = await renderDocx(fileArrayBuffer, document.getElementById('viewer'), {
+  paginate: true,
+  progressive: true
+});
+```
+
+### 方式二：浏览器 CDN 直接引入（无需打包工具）
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
-<script src="./dist/docx-paper.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx-paper@1.0.0/dist/docx-paper.js"></script>
 
 <div id="viewport" style="height: 100vh; overflow: auto; background: #e2e8f0; padding: 24px;">
   <div id="viewer"></div>

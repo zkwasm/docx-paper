@@ -1,5 +1,7 @@
 # docx-paper
 
+[![npm version](https://img.shields.io/npm/v/docx-paper.svg)](https://www.npmjs.com/package/docx-paper)
+[![npm downloads](https://img.shields.io/npm/dm/docx-paper.svg)](https://www.npmjs.com/package/docx-paper)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](./LICENSE)
 [![Compatibility](https://img.shields.io/badge/OpenXML%20Benchmark-100%2F100%20Passed-brightgreen.svg)](#compatibility)
 
@@ -19,11 +21,11 @@ Built on top of the `docxjs` foundation and extensively engineered for real-worl
 
 ## Quick Start
 
-### 1. Browser (`<script>` tag)
+### 1. Browser (`<script>` via CDN)
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
-<script src="./dist/docx-paper.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx-paper@1.0.0/dist/docx-paper.js"></script>
 
 <div id="scroll-viewport" style="height: 100vh; overflow: auto; background: #e2e8f0; padding: 24px;">
   <div id="viewer"></div>
