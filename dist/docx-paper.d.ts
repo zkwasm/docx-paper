@@ -6,6 +6,8 @@ export interface DocxPaperPageEvent {
 }
 
 export interface DocxPaperOptions {
+  /** Document format ('docx' | 'md' | 'auto'). Defaults to auto-detection. */
+  format?: 'docx' | 'md' | 'markdown' | 'auto';
   /** Scrollable parent element for tracking active page on scroll */
   scrollContainer?: HTMLElement;
   /** Automatically split sections into discrete physical paper cards (default: true) */
@@ -38,10 +40,19 @@ export interface DocxPaperController {
 }
 
 export function renderDocx(
-  data: Blob | ArrayBuffer | Uint8Array,
+  data: Blob | ArrayBuffer | Uint8Array | string,
   container: HTMLElement,
   options?: DocxPaperOptions
 ): Promise<DocxPaperController>;
+
+export function renderMarkdownAsync(
+  data: Blob | ArrayBuffer | Uint8Array | string,
+  bodyContainer: HTMLElement,
+  styleContainer?: HTMLElement | null,
+  options?: Record<string, any>
+): Promise<void>;
+
+export function latexToMathML(tex: string, displayMode?: boolean): string;
 
 export function renderAsync(
   data: Blob | ArrayBuffer | Uint8Array,

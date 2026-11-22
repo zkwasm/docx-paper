@@ -14,7 +14,9 @@
 
 1. **纯前端 WMF / EMF 二进制矢量公式渲染引擎**：
    - 无需后端、无需安装 LibreOffice 或 Microsoft Office，直接在浏览器内存里解析 Word 中的 `<w:object>`（MathType `Equation.DSMT4` 嵌入公式）与 `.wmf` / `.emf` Windows 矢量图元，毫秒级转换为高清矢量 `<svg>`（支持分式线、根号多边形、`Symbol` 希腊字母、大括号拼接以及 `MT Extra` 向量顶标箭头 $\overrightarrow{AB}$）。
-2. **标准 OMML 数学公式引擎（`<m:oMath>`）**：
+2. **原生支持 Markdown (`.md`) + LaTeX 数学公式纸张级排版与打印**：
+   - 除 `.docx` 外，支持直接传入 `.md` 文件或 Markdown 字符串，内置 GFM 表格（自动渲染为学术三线表风格）、代码块、任务列表、引用块解析，并将行内 `$...$` 与块级 `$$...$$` LaTeX 公式（`\frac`、`\sqrt`、`\int`、`\sum`、矩阵 `\begin{pmatrix}`、希腊字母等）直接编译为原生 W3C MathML，按标准 A4 纸张自动分页与打印。
+3. **标准 OMML 数学公式引擎（`<m:oMath>`）**：
    - 将 Word 原生 OMML 公式词法分析并编译为标准 W3C MathML，利用现代浏览器原生 C++ MathML 引擎零延迟渲染（完整覆盖 `<m:sSubSup>` 上下标、`<m:acc>` 顶标符号、`<m:limUpp>`/`<m:limLow>` 极限、`<m:rad>` 根式、`<m:nary>` 大型积分求和、`<m:m>` 矩阵等）。
 3. **深度中文 OpenXML 排版支持**：
    - 支持中文特有的 `w:firstLineChars` / `w:hangingChars` / `w:leftChars` 字符单位缩进；

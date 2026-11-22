@@ -1,7 +1,7 @@
 {
   "name": "docx-paper",
-  "version": "1.0.0",
-  "description": "High-fidelity pure-frontend .docx (OpenXML) page renderer with built-in WMF/EMF vector formula engine, OMML math, CJK typography, and progressive pagination.",
+  "version": "1.1.0",
+  "description": "High-fidelity pure-frontend .docx (OpenXML) & .md (Markdown + LaTeX) page renderer with built-in WMF/EMF vector formula engine, OMML/LaTeX math, CJK typography, and progressive pagination.",
   "main": "dist/docx-paper.js",
   "module": "dist/docx-paper.esm.js",
   "unpkg": "dist/docx-paper.js",
