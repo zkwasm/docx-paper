@@ -188,7 +188,8 @@
     </div>
 
     <div class="toolbar-right">
-      <button class="btn btn-secondary" id="sample-btn">✨ Load Demo .docx</button>
+      <button class="btn btn-secondary" id="sample-btn">✨ Demo .docx</button>
+      <button class="btn btn-secondary" id="sample-md-btn">📝 Demo .md</button>
       <label class="btn btn-primary">
         <span>Open .docx / .md</span>
         <input type="file" id="file-input" accept=".docx,.md,.markdown" hidden />
@@ -202,20 +203,23 @@
     <div class="hero-empty no-print" id="empty-card">
       <h1>docx-paper Live Playground</h1>
       <p>
-        Drop any <strong>.docx</strong> file anywhere on this page to test rendering fidelity,
-        OMML &amp; MathType (WMF/EMF) vector equations, CJK typography, Three-Line tables, and multi-page pagination—100% locally in your browser.
+        Drop any <strong>.docx</strong> or <strong>.md</strong> file anywhere on this page to test rendering fidelity,
+        OMML / MathType (WMF/EMF) / LaTeX equations, CJK typography, Three-Line tables, and multi-page pagination—100% locally in your browser.
       </p>
       <div class="hero-actions">
         <button class="btn btn-primary" onclick="document.getElementById('file-input').click()">
-          Choose Local .docx File
+          Choose Local .docx / .md File
         </button>
         <button class="btn btn-secondary" onclick="loadBuiltInSample()">
-          ✨ Try Built-in Math &amp; CJK Sample
+          ✨ Try Word (.docx) Sample
+        </button>
+        <button class="btn btn-secondary" onclick="loadBuiltInMarkdownSample()">
+          📝 Try Markdown (.md) + LaTeX Sample
         </button>
       </div>
       <div class="features">
-        <span>✓ WMF / EMF Vector Equations</span>
-        <span>✓ OMML MathML Compiler</span>
+        <span>✓ Word (.docx) &amp; Markdown (.md)</span>
+        <span>✓ WMF / EMF / OMML / LaTeX Math</span>
         <span>✓ CJK Typography &amp; 3-Line Tables</span>
         <span>✓ Progressive Pagination</span>
       </div>
@@ -400,6 +404,49 @@
     }
 
     document.getElementById('sample-btn').addEventListener('click', loadBuiltInSample);
+
+    async function loadBuiltInMarkdownSample() {
+      const BS = String.fromCharCode(92);
+      const md = [
+        '---',
+        'title: AI 时代文档渲染与 LaTeX 数学排版指南 (Markdown Showcase)',
+        '---',
+        '',
+        '本文档由 **docx-paper** 的纯前端 Markdown + LaTeX 引擎直接编译为标准 **A4 纸张卡片**，支持自动分页、三线表与原生打印。',
+        '',
+        '## 1. LaTeX 数学公式原生编译（零外部依赖）',
+        '',
+        '支持行内公式如欧拉恒等式 $e^{i' + BS + 'pi} + 1 = 0$、质能方程 $E = mc^2$，以及块级微积分与矩阵方程：',
+        '',
+        '$$' + BS + 'int_{-' + BS + 'infty}^{+' + BS + 'infty} e^{-x^2} dx = ' + BS + 'sqrt{' + BS + 'pi}, ' + BS + 'quad ' + BS + 'sum_{n=1}^{' + BS + 'infty} ' + BS + 'frac{1}{n^2} = ' + BS + 'frac{' + BS + 'pi^2}{6}$$',
+        '',
+        '线性代数矩阵与分段函数示例：',
+        '',
+        '$$A = ' + BS + 'begin{pmatrix} ' + BS + 'alpha_{11} & ' + BS + 'alpha_{12} ' + BS + BS + ' ' + BS + 'alpha_{21} & ' + BS + 'alpha_{22} ' + BS + 'end{pmatrix}, ' + BS + 'quad f(x) = ' + BS + 'begin{cases} x^2 + 1, & x ' + BS + 'ge 0 ' + BS + BS + ' -x, & x < 0 ' + BS + 'end{cases}$$',
+        '',
+        '## 2. GFM 学术三线表自动渲染',
+        '',
+        '| 功能模块 | 输入格式 | 渲染输出 | 性能耗时 |',
+        '| :--- | :---: | :---: | ---: |',
+        '| OpenXML 页面引擎 | `.docx` | A4/B5 独立纸张卡片 | `< 35ms` |',
+        '| WMF/EMF 矢量公式 | `<w:object>` | 纯前端矢量 `<svg>` | `< 12ms` |',
+        '| Markdown + LaTeX | `.md` / `$...$` | W3C MathML + 三线表 | `< 10ms` |',
+        '',
+        '## 3. 代码块与任务列表',
+        '',
+        '- [x] 支持 `.docx` 复杂中文试卷与 MathType 矢量公式',
+        '- [x] 支持 `.md` GFM 表格与 LaTeX 数学公式编译',
+        '- [x] 支持流式物理切页、键盘左右键翻页与原生打印 (`⌘P`)',
+        '',
+        '```js',
+        'import { renderDocx } from "docx-paper";',
+        'const viewer = await renderDocx(markdownOrDocxBuffer, container);',
+        '```'
+      ].join(String.fromCharCode(10));
+      await renderBuffer(md, 'Sample-Guide.md');
+    }
+
+    document.getElementById('sample-md-btn').addEventListener('click', loadBuiltInMarkdownSample);
   </script>
 </body>
 </html>

@@ -53,14 +53,15 @@ const viewer = await renderDocx(fileArrayBuffer, document.getElementById('viewer
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/docx-paper@1.0.0/dist/docx-paper.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx-paper@1.1.1/dist/docx-paper.js"></script>
 
 <div id="viewport" style="height: 100vh; overflow: auto; background: #e2e8f0; padding: 24px;">
   <div id="viewer"></div>
 </div>
 
 <script>
-  const viewer = await DocxPaper.renderDocx(fileArrayBuffer, document.getElementById('viewer'), {
+  // 自动识别 .docx 二进制流或 .md 文本/二进制流并渲染为 A4 分页纸张卡片
+  const viewer = await DocxPaper.renderDocx(fileArrayBufferOrMarkdownText, document.getElementById('viewer'), {
     scrollContainer: document.getElementById('viewport'),
     paginate: true,       // 自动物理纸张切页与页间间隙
     progressive: true,    // 首屏秒开前 2 页，后续页后台流式加载

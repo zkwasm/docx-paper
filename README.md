@@ -27,16 +27,19 @@ Built on top of the `docxjs` foundation and extensively engineered for real-worl
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/docx-paper@1.0.0/dist/docx-paper.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx-paper@1.1.1/dist/docx-paper.js"></script>
 
 <div id="scroll-viewport" style="height: 100vh; overflow: auto; background: #e2e8f0; padding: 24px;">
   <div id="viewer"></div>
 </div>
 
 <script>
-  async function openDocument(file) {
-    const buffer = await file.arrayBuffer();
-    const controller = await DocxPaper.renderDocx(buffer, document.getElementById('viewer'), {
+  // Supports both .docx (ArrayBuffer / Blob) and .md (string / ArrayBuffer / Blob) automatically!
+  async function openDocument(fileOrMarkdownString) {
+    const data = typeof fileOrMarkdownString === 'string'
+      ? fileOrMarkdownString
+      : await fileOrMarkdownString.arrayBuffer();
+    const controller = await DocxPaper.renderDocx(data, document.getElementById('viewer'), {
       scrollContainer: document.getElementById('scroll-viewport'),
       paginate: true,
       progressive: true,
